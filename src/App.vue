@@ -6,7 +6,7 @@
       <GameWrongLetters />
       <GameWord />
     </div>
-    <GamePopup />
+    <GamePopup v-if="false" />
     <GameNotification />
   </div>
 </template>
