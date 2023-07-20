@@ -4,13 +4,7 @@
     <div class="game-container">
       <GameFigure />
       <GameWrongLetters />
-      <div class="word">
-        <span class="letter">л</span>
-        <span class="letter"></span>
-        <span class="letter">д</span>
-        <span class="letter"></span>
-        <span class="letter"></span>
-      </div>
+      <GameWord />
     </div>
 
     <!-- Container for final message -->
@@ -34,6 +28,7 @@
 import GameHeader from "./components/GameHeader.vue";
 import GameFigure from "./components/GameFigure.vue";
 import GameWrongLetters from "./components/GameWrongLetters.vue";
+import GameWord from "./components/GameWord.vue";
 </script>
 
 <style></style>
