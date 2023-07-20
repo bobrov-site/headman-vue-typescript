@@ -2,24 +2,7 @@
   <div id="app">
     <GameHeader />
     <div class="game-container">
-      <svg height="250" width="200" class="figure-container">
-        <!-- Rod -->
-        <line x1="60" y1="20" x2="140" y2="20" />
-        <line x1="140" y1="20" x2="140" y2="50" />
-        <line x1="60" y1="20" x2="60" y2="230" />
-        <line x1="20" y1="230" x2="100" y2="230" />
-
-        <!-- Head -->
-        <circle cx="140" cy="70" r="20" />
-        <!-- Body -->
-        <line x1="140" y1="90" x2="140" y2="150" />
-        <!-- Arms -->
-        <!-- <line x1="140" y1="120" x2="120" y2="100" />
-          <line x1="140" y1="120" x2="160" y2="100" /> -->
-        <!-- Legs -->
-        <!-- <line x1="140" y1="150" x2="120" y2="180" />
-          <line x1="140" y1="150" x2="160" y2="180" /> -->
-      </svg>
+      <GameFigure />
 
       <div class="wrong-letters-container">
         <div class="wrong-letters">
@@ -57,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from "vue";
 import GameHeader from "./components/GameHeader.vue";
+import GameFigure from "./components/GameFigure.vue";
 </script>
 
 <style></style>
