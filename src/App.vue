@@ -3,16 +3,7 @@
     <GameHeader />
     <div class="game-container">
       <GameFigure />
-
-      <div class="wrong-letters-container">
-        <div class="wrong-letters">
-          <p>Ошибки</p>
-          <span>п , </span>
-          <span>м , </span>
-          <span>с </span>
-        </div>
-      </div>
-
+      <GameWrongLetters />
       <div class="word">
         <span class="letter">л</span>
         <span class="letter"></span>
@@ -42,6 +33,7 @@
 <script setup lang="ts">
 import GameHeader from "./components/GameHeader.vue";
 import GameFigure from "./components/GameFigure.vue";
+import GameWrongLetters from "./components/GameWrongLetters.vue";
 </script>
 
 <style></style>
