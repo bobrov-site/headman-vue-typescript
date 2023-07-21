@@ -10,7 +10,7 @@
       <GameWord :word="word" :correct-letters="correctLetters" />
     </div>
     <GamePopup v-if="false" />
-    <GameNotification />
+    <GameNotification ref="notification" />
   </div>
 </template>
 
@@ -25,6 +25,7 @@ import { computed, ref } from "vue";
 
 const word = ref("василий");
 const letters = ref<string[]>([]);
+const notification = ref<InstanceType<typeof GameNotification> | null>(null);
 const correctLetters = computed(() => {
   return letters.value.filter((x) => word.value.includes(x));
 });
@@ -32,6 +33,11 @@ const wrongLetters = computed(() => {
   return letters.value.filter((x) => !word.value.includes(x));
 });
 window.addEventListener("keydown", ({ key }) => {
+  if (letters.value.includes(key)) {
+    notification.value?.showNotification();
+    setTimeout(() => notification.value?.closeNotification(), 2000);
+    return;
+  }
   if (/[а-яА-ЯёЁ]/.test(key)) {
     letters.value.push(key.toLocaleLowerCase());
   }
