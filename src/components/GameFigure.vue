@@ -7,18 +7,25 @@
     <line x1="20" y1="230" x2="100" y2="230" />
 
     <!-- Head -->
-    <circle cx="140" cy="70" r="20" />
+    <circle v-if="wrongLettersCount >= 1" cx="140" cy="70" r="20" />
     <!-- Body -->
-    <line x1="140" y1="90" x2="140" y2="150" />
+    <line v-if="wrongLettersCount >= 2" x1="140" y1="90" x2="140" y2="150" />
     <!-- Arms -->
-    <!-- <line x1="140" y1="120" x2="120" y2="100" />
-          <line x1="140" y1="120" x2="160" y2="100" /> -->
+    <line v-if="wrongLettersCount >= 3" x1="140" y1="120" x2="120" y2="100" />
+    <line v-if="wrongLettersCount >= 4" x1="140" y1="120" x2="160" y2="100" />
     <!-- Legs -->
-    <!-- <line x1="140" y1="150" x2="120" y2="180" />
-          <line x1="140" y1="150" x2="160" y2="180" /> -->
+    <line v-if="wrongLettersCount >= 5" x1="140" y1="150" x2="120" y2="180" />
+    <line v-if="wrongLettersCount >= 6" x1="140" y1="150" x2="160" y2="180" />
   </svg>
 </template>
 
-<script lang="ts"></script>
+<script setup lang="ts">
+import { defineProps } from "vue";
+interface Props {
+  wrongLettersCount: number;
+}
+
+defineProps<Props>();
+</script>
 
 <style scoped></style>

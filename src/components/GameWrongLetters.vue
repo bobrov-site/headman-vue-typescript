@@ -2,11 +2,7 @@
   <div class="wrong-letters-container">
     <div class="wrong-letters">
       <p>Ошибки</p>
-      <span
-        v-for="(letter, index) in wrongLetters"
-        :key="letter"
-        class="letter"
-      >
+      <span v-for="(letter, index) in wrongLetters" :key="letter">
         {{ showLetterWithSymbol(letter, index) }}
       </span>
     </div>
