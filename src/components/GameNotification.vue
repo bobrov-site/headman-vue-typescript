@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineExpose } from "vue";
+import { ref } from "vue";
 const isShow = ref(false);
 
 const showNotification = () => {
@@ -14,7 +14,7 @@ const showNotification = () => {
 const closeNotification = () => {
   isShow.value = false;
 };
-
+/* eslint-disable */
 defineExpose({
   showNotification,
   closeNotification,
