@@ -12,12 +12,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineExpose, defineEmits, defineProps } from "vue";
+import { ref } from "vue";
 import type { GameStatus } from "../types/GameStatus";
 
 interface Props {
   word: string;
 }
+/* eslint-disable */
 defineProps<Props>();
 const gameStatus = ref<GameStatus | null>(null);
 const isShow = ref(false);
