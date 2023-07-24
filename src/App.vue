@@ -22,20 +22,18 @@ import GameWord from "./components/GameWord.vue";
 import GamePopup from "./components/GamePopup.vue";
 import GameNotification from "./components/GameNotification.vue";
 import { computed, ref, watch } from "vue";
-import axios from "axios";
+import getRandomName from "./api/getRandomName";
 const word = ref("");
-const getRandomName = async () => {
+const getRandomWord = async () => {
   try {
-    const { data } = await axios<{ FirstName: string }>(
-      "http://api.randomdatatools.ru/?unescaped=false&params=FirstName"
-    );
-    word.value = data.FirstName.toLowerCase();
+    const name = await getRandomName();
+    word.value = name;
   } catch (e) {
     console.log(e);
-    word.value = ''
+    word.value = "";
   }
 };
-getRandomName();
+getRandomWord();
 const letters = ref<string[]>([]);
 const notification = ref<InstanceType<typeof GameNotification> | null>(null);
 const isStatusLose = computed(() => wrongLetters.value.length === 6);
@@ -51,7 +49,7 @@ const wrongLetters = computed(() => {
 });
 
 const restart = async () => {
-  await getRandomName();  
+  await getRandomWord();
   letters.value = [];
   popup.value?.closePopup();
 };
