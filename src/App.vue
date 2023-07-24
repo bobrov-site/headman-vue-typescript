@@ -9,7 +9,7 @@
       />
       <GameWord :word="word" :correct-letters="correctLetters" />
     </div>
-    <GamePopup ref="popup" />
+    <GamePopup :word="word" ref="popup" @restart="restart" />
     <GameNotification ref="notification" />
   </div>
 </template>
@@ -34,6 +34,11 @@ const wrongLetters = computed(() => {
   return letters.value.filter((x) => !word.value.includes(x));
 });
 
+const restart = () => {
+  letters.value = [];
+  popup.value?.closePopup();
+};
+
 watch(wrongLetters, () => {
   if (wrongLetters.value.length === 6) {
     popup.value?.showPopup("lose");
@@ -41,7 +46,7 @@ watch(wrongLetters, () => {
 });
 
 watch(correctLetters, () => {
-  if (correctLetters.value.length === word.value.length) {
+  if ([...word.value].every((x) => correctLetters.value.includes(x))) {
     popup.value?.showPopup("win");
   }
 });
