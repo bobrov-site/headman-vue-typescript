@@ -15,32 +15,34 @@
 </template>
 
 <script setup lang="ts">
-import GameHeader from "./components/GameHeader.vue";
-import GameFigure from "./components/GameFigure.vue";
-import GameWrongLetters from "./components/GameWrongLetters.vue";
-import GameWord from "./components/GameWord.vue";
-import GamePopup from "./components/GamePopup.vue";
-import GameNotification from "./components/GameNotification.vue";
-import { computed, ref, watch } from "vue";
+import GameHeader from "@/components/GameHeader.vue";
+import GameFigure from "@/components/GameFigure.vue";
+import GameWrongLetters from "@/components/GameWrongLetters.vue";
+import GameWord from "@/components/GameWord.vue";
+import GamePopup from "@/components/GamePopup.vue";
+import GameNotification from "@/components/GameNotification.vue";
+import { ref, watch } from "vue";
 import { useRandomWord } from "@/composables/useRandomWord.ts";
+import { useLetters } from "@/composables/useLetters.ts";
+
 const { word, getRandomWord } = useRandomWord();
-const letters = ref<string[]>([]);
+const {
+  letters,
+  wrongLetters,
+  correctLetters,
+  isStatusLose,
+  isStatusWin,
+  addLetter,
+  resetLetters,
+} = useLetters(word);
+
 const notification = ref<InstanceType<typeof GameNotification> | null>(null);
-const isStatusLose = computed(() => wrongLetters.value.length === 6);
-const isStatusWin = computed(() =>
-  [...word.value].every((x) => correctLetters.value.includes(x))
-);
+
 const popup = ref<InstanceType<typeof GamePopup> | null>(null);
-const correctLetters = computed(() => {
-  return letters.value.filter((x) => word.value.includes(x));
-});
-const wrongLetters = computed(() => {
-  return letters.value.filter((x) => !word.value.includes(x));
-});
 
 const restart = async () => {
   await getRandomWord();
-  letters.value = [];
+  resetLetters();
   popup.value?.closePopup();
 };
 
@@ -64,9 +66,7 @@ window.addEventListener("keydown", ({ key }) => {
     setTimeout(() => notification.value?.closeNotification(), 2000);
     return;
   }
-  if (/[а-яА-ЯёЁ]/.test(key)) {
-    letters.value.push(key.toLocaleLowerCase());
-  }
+  addLetter(key);
 });
 </script>
 
