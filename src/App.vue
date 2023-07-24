@@ -22,8 +22,9 @@ import GameWord from "@/components/GameWord.vue";
 import GamePopup from "@/components/GamePopup.vue";
 import GameNotification from "@/components/GameNotification.vue";
 import { ref, watch } from "vue";
-import { useRandomWord } from "@/composables/useRandomWord.ts";
-import { useLetters } from "@/composables/useLetters.ts";
+import { useRandomWord } from "@/composables/useRandomWord";
+import { useLetters } from "@/composables/useLetters";
+import { useNotification } from "@/composables/useNotification";
 
 const { word, getRandomWord } = useRandomWord();
 const {
@@ -36,7 +37,7 @@ const {
   resetLetters,
 } = useLetters(word);
 
-const notification = ref<InstanceType<typeof GameNotification> | null>(null);
+const { notification, showNotification } = useNotification();
 
 const popup = ref<InstanceType<typeof GamePopup> | null>(null);
 
@@ -62,9 +63,7 @@ window.addEventListener("keydown", ({ key }) => {
     return;
   }
   if (letters.value.includes(key)) {
-    notification.value?.showNotification();
-    setTimeout(() => notification.value?.closeNotification(), 2000);
-    return;
+    showNotification();
   }
   addLetter(key);
 });
