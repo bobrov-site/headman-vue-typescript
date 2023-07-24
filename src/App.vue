@@ -22,18 +22,8 @@ import GameWord from "./components/GameWord.vue";
 import GamePopup from "./components/GamePopup.vue";
 import GameNotification from "./components/GameNotification.vue";
 import { computed, ref, watch } from "vue";
-import getRandomName from "./api/getRandomName";
-const word = ref("");
-const getRandomWord = async () => {
-  try {
-    const name = await getRandomName();
-    word.value = name;
-  } catch (e) {
-    console.log(e);
-    word.value = "";
-  }
-};
-getRandomWord();
+import { useRandomWord } from "@/composables/useRandomWord.ts";
+const { word, getRandomWord } = useRandomWord();
 const letters = ref<string[]>([]);
 const notification = ref<InstanceType<typeof GameNotification> | null>(null);
 const isStatusLose = computed(() => wrongLetters.value.length === 6);
