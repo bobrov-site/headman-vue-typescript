@@ -26,6 +26,10 @@ import { computed, ref, watch } from "vue";
 const word = ref("василий");
 const letters = ref<string[]>([]);
 const notification = ref<InstanceType<typeof GameNotification> | null>(null);
+const isStatusLose = computed(() => wrongLetters.value.length === 6);
+const isStatusWin = computed(() =>
+  [...word.value].every((x) => correctLetters.value.includes(x))
+);
 const popup = ref<InstanceType<typeof GamePopup> | null>(null);
 const correctLetters = computed(() => {
   return letters.value.filter((x) => word.value.includes(x));
@@ -40,17 +44,20 @@ const restart = () => {
 };
 
 watch(wrongLetters, () => {
-  if (wrongLetters.value.length === 6) {
+  if (isStatusLose.value) {
     popup.value?.showPopup("lose");
   }
 });
 
 watch(correctLetters, () => {
-  if ([...word.value].every((x) => correctLetters.value.includes(x))) {
+  if (isStatusWin.value) {
     popup.value?.showPopup("win");
   }
 });
 window.addEventListener("keydown", ({ key }) => {
+  if (isStatusLose.value || isStatusWin.value) {
+    return;
+  }
   if (letters.value.includes(key)) {
     notification.value?.showNotification();
     setTimeout(() => notification.value?.closeNotification(), 2000);
